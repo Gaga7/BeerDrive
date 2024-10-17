@@ -61,7 +61,7 @@ namespace BeerDrive
         {
             accordionControlElementTerminal.Visible = Globals.User.IsAdmin || Globals.User.IsOperator;
             accordionControlElementCategories.Visible = Globals.User.IsAdmin;
-            accordionControlElementProducts.Visible = Globals.User.IsAdmin;
+            accordionControlElementProducts.Visible = Globals.User.IsAdmin || Globals.User.IsManager;
             accordionControlElementUsers.Visible = Globals.User.IsAdmin;
             accordionControlElementOrders.Visible = Globals.User.IsAdmin || Globals.User.IsOperator;
             accordionControlElementOrderDetails.Visible = Globals.User.IsAdmin || Globals.User.IsOperator;

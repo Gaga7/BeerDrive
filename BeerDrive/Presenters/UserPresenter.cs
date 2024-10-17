@@ -86,6 +86,7 @@ namespace BeerDrive.Presenters
 
                 model.IsAdmin = roles.Any(a => a.Name == "Admin");
                 model.IsOperator = roles.Any(a => a.Name == "Operator");
+                model.IsManager = roles.Any(a => a.Name == "Manager");
 
                 return model;
             }

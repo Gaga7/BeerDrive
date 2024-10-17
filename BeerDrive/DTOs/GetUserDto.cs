@@ -17,6 +17,7 @@ namespace BeerDrive.DTOs
         public List<Guid> RoleIds { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsOperator { get; set; }
+        public bool IsManager { get; set; }
         public DateTime DateCreated { get; set; }
     }
 }

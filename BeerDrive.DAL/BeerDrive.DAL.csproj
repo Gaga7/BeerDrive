@@ -77,6 +77,7 @@
     <Compile Include="Context\BeerDriveContext.cs" />
     <Compile Include="Cryptography\StringCipher.cs" />
     <Compile Include="Enums\CategoryTypesEnum.cs" />
+    <Compile Include="Enums\OneTimeCodeTypesEnum.cs" />
     <Compile Include="Enums\PayTypesEnum.cs" />
     <Compile Include="Enums\TransactionStatusTypesEnum.cs" />
     <Compile Include="Exceptions\AccessFault.cs" />

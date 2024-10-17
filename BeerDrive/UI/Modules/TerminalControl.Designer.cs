@@ -48,11 +48,13 @@ namespace BeerDrive.UI.Modules
             this.sidePanel4 = new DevExpress.XtraEditors.SidePanel();
             this.sidePanel7 = new DevExpress.XtraEditors.SidePanel();
             this.layoutControl6 = new DevExpress.XtraLayout.LayoutControl();
+            this.addInQueueBtn = new DevExpress.XtraEditors.SimpleButton();
             this.cancelBtn = new DevExpress.XtraEditors.SimpleButton();
             this.payBtn = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItemCancelBtn = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.sidePanel6 = new DevExpress.XtraEditors.SidePanel();
             this.layoutControl5 = new DevExpress.XtraLayout.LayoutControl();
             this.changeSpn = new DevExpress.XtraEditors.SpinEdit();
@@ -107,6 +109,7 @@ namespace BeerDrive.UI.Modules
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCancelBtn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             this.sidePanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).BeginInit();
             this.layoutControl5.SuspendLayout();
@@ -309,44 +312,60 @@ namespace BeerDrive.UI.Modules
             this.sidePanel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.sidePanel7.Location = new System.Drawing.Point(1, 262);
             this.sidePanel7.Name = "sidePanel7";
-            this.sidePanel7.Size = new System.Drawing.Size(402, 170);
+            this.sidePanel7.Size = new System.Drawing.Size(402, 150);
             this.sidePanel7.TabIndex = 2;
             this.sidePanel7.Text = "sidePanel7";
             // 
             // layoutControl6
             // 
+            this.layoutControl6.Controls.Add(this.addInQueueBtn);
             this.layoutControl6.Controls.Add(this.cancelBtn);
             this.layoutControl6.Controls.Add(this.payBtn);
             this.layoutControl6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl6.Location = new System.Drawing.Point(0, 0);
             this.layoutControl6.Name = "layoutControl6";
             this.layoutControl6.Root = this.layoutControlGroup5;
-            this.layoutControl6.Size = new System.Drawing.Size(402, 169);
+            this.layoutControl6.Size = new System.Drawing.Size(402, 149);
             this.layoutControl6.TabIndex = 1;
             this.layoutControl6.Text = "layoutControl6";
+            // 
+            // addInQueueBtn
+            // 
+            this.addInQueueBtn.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("addInQueueBtn.ImageOptions.SvgImage")));
+            this.addInQueueBtn.ImageOptions.SvgImageSize = new System.Drawing.Size(85, 90);
+            this.addInQueueBtn.Location = new System.Drawing.Point(266, 12);
+            this.addInQueueBtn.Name = "addInQueueBtn";
+            this.addInQueueBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            this.addInQueueBtn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+            this.addInQueueBtn.Size = new System.Drawing.Size(124, 116);
+            this.addInQueueBtn.StyleController = this.layoutControl6;
+            this.addInQueueBtn.TabIndex = 6;
+            this.addInQueueBtn.ToolTip = "რიგში ჩაბრუნება";
+            this.addInQueueBtn.Click += new System.EventHandler(this.AddInQueueBtn_Click);
             // 
             // cancelBtn
             // 
             this.cancelBtn.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cancelBtn.ImageOptions.SvgImage")));
-            this.cancelBtn.ImageOptions.SvgImageSize = new System.Drawing.Size(100, 100);
-            this.cancelBtn.Location = new System.Drawing.Point(203, 12);
+            this.cancelBtn.ImageOptions.SvgImageSize = new System.Drawing.Size(85, 90);
+            this.cancelBtn.Location = new System.Drawing.Point(138, 12);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             this.cancelBtn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.cancelBtn.Size = new System.Drawing.Size(187, 129);
+            this.cancelBtn.Size = new System.Drawing.Size(124, 116);
             this.cancelBtn.StyleController = this.layoutControl6;
             this.cancelBtn.TabIndex = 5;
             this.cancelBtn.ToolTip = "გაუქმება";
+            this.cancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
             // payBtn
             // 
             this.payBtn.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("payBtn.ImageOptions.SvgImage")));
-            this.payBtn.ImageOptions.SvgImageSize = new System.Drawing.Size(100, 100);
+            this.payBtn.ImageOptions.SvgImageSize = new System.Drawing.Size(85, 90);
             this.payBtn.Location = new System.Drawing.Point(12, 12);
             this.payBtn.Name = "payBtn";
             this.payBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             this.payBtn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.payBtn.Size = new System.Drawing.Size(187, 129);
+            this.payBtn.Size = new System.Drawing.Size(122, 116);
             this.payBtn.StyleController = this.layoutControl6;
             this.payBtn.TabIndex = 4;
             this.payBtn.ToolTip = "გადახდა";
@@ -358,9 +377,10 @@ namespace BeerDrive.UI.Modules
             this.layoutControlGroup5.GroupBordersVisible = false;
             this.layoutControlGroup5.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem14,
-            this.layoutControlItemCancelBtn});
-            this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(402, 169);
+            this.layoutControlItemCancelBtn,
+            this.layoutControlItem13});
+            this.layoutControlGroup5.Name = "Root";
+            this.layoutControlGroup5.Size = new System.Drawing.Size(402, 149);
             this.layoutControlGroup5.TextVisible = false;
             // 
             // layoutControlItem14
@@ -368,18 +388,27 @@ namespace BeerDrive.UI.Modules
             this.layoutControlItem14.Control = this.payBtn;
             this.layoutControlItem14.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(191, 149);
+            this.layoutControlItem14.Size = new System.Drawing.Size(126, 129);
             this.layoutControlItem14.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem14.TextVisible = false;
             // 
             // layoutControlItemCancelBtn
             // 
             this.layoutControlItemCancelBtn.Control = this.cancelBtn;
-            this.layoutControlItemCancelBtn.Location = new System.Drawing.Point(191, 0);
+            this.layoutControlItemCancelBtn.Location = new System.Drawing.Point(126, 0);
             this.layoutControlItemCancelBtn.Name = "layoutControlItemCancelBtn";
-            this.layoutControlItemCancelBtn.Size = new System.Drawing.Size(191, 149);
+            this.layoutControlItemCancelBtn.Size = new System.Drawing.Size(128, 129);
             this.layoutControlItemCancelBtn.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItemCancelBtn.TextVisible = false;
+            // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.Control = this.addInQueueBtn;
+            this.layoutControlItem13.Location = new System.Drawing.Point(254, 0);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(128, 129);
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem13.TextVisible = false;
             // 
             // sidePanel6
             // 
@@ -951,6 +980,7 @@ namespace BeerDrive.UI.Modules
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCancelBtn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             this.sidePanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).EndInit();
             this.layoutControl5.ResumeLayout(false);
@@ -1055,5 +1085,7 @@ namespace BeerDrive.UI.Modules
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItemDeleteBtn;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
+        private DevExpress.XtraEditors.SimpleButton addInQueueBtn;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
     }
 }

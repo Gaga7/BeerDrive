@@ -22,6 +22,7 @@ namespace BeerDrive.UI.Modules
         private PayTypePresenter payTypePresenter;
         private ProductPresenter productPresenter;
         private TerminalPresenter terminalPresenter;
+        private TransactionPresenter transactionPresenter;
         private TransactionDetailPresenter transactionDetailPresenter;
 
         public PayTypePresenter PayTypePresenter
@@ -54,6 +55,17 @@ namespace BeerDrive.UI.Modules
                     terminalPresenter = new TerminalPresenter();
 
                 return terminalPresenter;
+            }
+        }
+
+        public TransactionPresenter TransactionPresenter
+        {
+            get
+            {
+                if (transactionPresenter == null)
+                    transactionPresenter = new TransactionPresenter();
+
+                return transactionPresenter;
             }
         }
 
@@ -161,7 +173,7 @@ namespace BeerDrive.UI.Modules
         private void InitializePermissions()
         {
             //layoutControlItemDeleteBtn.ContentVisible = Globals.User.IsAdmin;
-            layoutControlItemCancelBtn.ContentVisible = Globals.User.IsAdmin;
+            //layoutControlItemCancelBtn.ContentVisible = Globals.User.IsAdmin;
         }
 
         private async void BarcodeTxt_KeyPress(object sender, KeyPressEventArgs e)
@@ -318,6 +330,7 @@ namespace BeerDrive.UI.Modules
             await TerminalPresenter.PayAsync(model);
 
             Clear();
+            FillTerminal();
         }
 
         private void Clear()
@@ -385,9 +398,9 @@ namespace BeerDrive.UI.Modules
             {
                 if (Globals.User.IsOperator)
                 {
-                    await TransactionDetailPresenter.SendCodeToEmail(selectedRow.Id);
+                    await TransactionDetailPresenter.SendCodeToEmailAsync(selectedRow.Id);
 
-                    var form = new OneTimeCodeForm(selectedRow.Id);
+                    var form = new OneTimeCodeForm(selectedRow.Id, OneTimeCodeTypesEnum.TransactionDetail);
 
                     if (form.ShowDialog() != DialogResult.OK)
                         return;
@@ -417,6 +430,44 @@ namespace BeerDrive.UI.Modules
         private void SetFocus(Control control)
         {
             control.Focus();
+        }
+
+        private async void AddInQueueBtn_Click(object sender, EventArgs e)
+        {
+            if (XtraMessageBox.Show("ნამდვილად გსურთ ჩანაწერის რიგში ჩაბრუნება?", "შეტყობინება", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            await TerminalPresenter.AddInQueueAsync(TransactionId);
+
+            Clear();
+            FillTerminal();
+        }
+
+        private async void CancelBtn_Click(object sender, EventArgs e)
+        {
+            if (TransactionId == null)
+            {
+                XtraMessageBox.Show("ტრანზაქციის იდენტიფიკატორი ცარიელია", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (XtraMessageBox.Show("ნამდვილად გსურთ ტრანზაქციის გაუქმება?", "შეტყობინება", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            if (Globals.User.IsOperator)
+            {
+                await TransactionPresenter.SendCodeToEmailAsync(TransactionId);
+
+                var form = new OneTimeCodeForm(TransactionId.Value, OneTimeCodeTypesEnum.Transaction);
+
+                if (form.ShowDialog() != DialogResult.OK)
+                    return;
+            }
+
+            await TerminalPresenter.CancelAsync(TransactionId);
+
+            Clear();
+            FillTerminal();
         }
 
         //private string _barcode = "";

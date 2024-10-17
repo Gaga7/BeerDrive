@@ -230,7 +230,11 @@ namespace BeerDrive.Presenters
             using (var unitOfWork = new UnitOfWork())
             {
                 var transaction = await unitOfWork.TransactionRepository.ReadAsync(model.Id.Value);
+                var waitingTransactions = await unitOfWork.TransactionRepository.ReadAsync(r => r.TransactionStatusTypeId == TransactionStatusTypesEnum.Waiting);
                 var transactionDetails = transaction.BD_TransactionDetails.Where(r => r.DateDeleted == null);
+
+                if (waitingTransactions.Count() > 1)
+                    ValidationFault.Throw("მოიძებნა ერთზე მეტი რიგში მყოფი ტრანზაქცია");
 
                 foreach (var transactionDetail in transactionDetails)
                 {
@@ -258,6 +262,72 @@ namespace BeerDrive.Presenters
                 transaction.TotalAmount = transactionDetails.Sum(s => s.TotalPrice);
 
                 await unitOfWork.TransactionRepository.UpdateAsync(transaction.Id, transaction);
+
+                var waitingTransaction = waitingTransactions.FirstOrDefault();
+
+                if (waitingTransaction != null)
+                {
+                    waitingTransaction.TransactionStatusTypeId = TransactionStatusTypesEnum.WorkingProcess;
+
+                    await unitOfWork.TransactionRepository.UpdateAsync(waitingTransaction.Id, waitingTransaction);
+                }
+
+                await unitOfWork.SaveAsync();
+            }
+        }
+
+        public async Task CancelAsync(Guid? id)
+        {
+            if (id == null)
+                ValidationFault.Throw("იდენტიფიკატორი ცარიელია");
+
+            using (var unitOfWork = new UnitOfWork())
+            {
+                var entity = await unitOfWork.TransactionRepository.ReadAsync(id.Value);
+
+                if (entity == null)
+                    ValidationFault.Throw("ჩანაწერი ვერ მოიძებნა");
+
+                var waitingTransactions = await unitOfWork.TransactionRepository.ReadAsync(r => r.TransactionStatusTypeId == TransactionStatusTypesEnum.Waiting);
+
+                if (waitingTransactions.Count() > 1)
+                    ValidationFault.Throw("მოიძებნა ერთზე მეტი რიგში მყოფი ტრანზაქცია");
+
+                entity.TransactionStatusTypeId = TransactionStatusTypesEnum.Cancelled;
+
+                await unitOfWork.TransactionRepository.UpdateAsync(id.Value, entity);
+
+                var waitingTransaction = waitingTransactions.FirstOrDefault();
+
+                if (waitingTransaction != null)
+                {
+                    waitingTransaction.TransactionStatusTypeId = TransactionStatusTypesEnum.WorkingProcess;
+
+                    await unitOfWork.TransactionRepository.UpdateAsync(waitingTransaction.Id, waitingTransaction);
+                }
+
+                await unitOfWork.SaveAsync();
+            }
+        }
+
+        public async Task AddInQueueAsync(Guid? id)
+        {
+            if (id == null)
+                ValidationFault.Throw("იდენტიფიკატორი ცარიელია");
+
+            using (var unitOfWork = new UnitOfWork())
+            {
+                if (await unitOfWork.TransactionRepository.CheckAsync(c => c.TransactionStatusTypeId == TransactionStatusTypesEnum.Waiting))
+                    ValidationFault.Throw("შეუძლებელია რიგში ერთზე მეტი ტრანზაქციის დამატება");
+
+                var entity = await unitOfWork.TransactionRepository.ReadAsync(id.Value);
+
+                if (entity == null)
+                    ValidationFault.Throw("ჩანაწერი ვერ მოიძებნა");
+
+                entity.TransactionStatusTypeId = TransactionStatusTypesEnum.Waiting;
+
+                await unitOfWork.TransactionRepository.UpdateAsync(id.Value, entity);
 
                 await unitOfWork.SaveAsync();
             }
