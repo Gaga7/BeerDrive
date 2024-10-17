@@ -1,7 +1,9 @@
 ﻿using BeerDrive.DTOs;
+using BeerDrive.Global;
 using BeerDrive.Presenters;
 using BeerDrive.UI.Forms;
 using DevExpress.DXperience.Demos;
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using System;
@@ -32,7 +34,17 @@ namespace BeerDrive.UI.Modules
 
         private async void ProductsGridview_Load(object sender, EventArgs e)
         {
+            InitializePermissions();
+
             await BindProducts();
+        }
+
+        private void InitializePermissions()
+        {
+            var visible = Globals.User.IsAdmin ? BarItemVisibility.Always : BarItemVisibility.Never;
+
+            editProductBtn.Visibility = visible;
+            deleteProductBtn.Visibility = visible;
         }
 
         private async Task BindProducts()

@@ -216,7 +216,7 @@ namespace BeerDrive.Presenters
             }
         }
 
-        public async Task SendCodeToEmail(Guid? id)
+        public async Task SendCodeToEmailAsync(Guid? id)
         {
             if (id == null)
                 ValidationFault.Throw("იდენტიფიკატორი ცარიელია");

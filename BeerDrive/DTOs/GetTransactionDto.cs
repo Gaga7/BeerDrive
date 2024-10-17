@@ -14,6 +14,7 @@ namespace BeerDrive.DTOs
         public decimal? TotalAmount { get; set; }
         public decimal? Cash { get; set; }
         public decimal? Change { get; set; }
+        public string Code { get; set; }
         public DateTime DateCreated { get; set; }
         public string User { get; set; }
     }

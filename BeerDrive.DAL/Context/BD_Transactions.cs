@@ -25,6 +25,8 @@ namespace BeerDrive.DAL.Context
 
         public decimal? Change { get; set; }
 
+        public string Code { get; set; }
+
         public virtual BD_Users BD_Users { get; set; }
         public virtual BD_PayTypes BD_PayTypes { get; set; }
         public virtual BD_TransactionStatusTypes BD_TransactionStatusTypes { get; set; }
