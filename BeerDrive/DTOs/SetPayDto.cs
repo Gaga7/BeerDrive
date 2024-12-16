@@ -6,6 +6,7 @@ namespace BeerDrive.DTOs
     {
         public Guid? Id { get; set; }
         public Guid? PayTypeId { get; set; }
+        public Guid? CustomerId { get; set; }
         public decimal? Cash { get; set; }
         public decimal? Change { get; set; }
     }

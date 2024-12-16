@@ -13,6 +13,7 @@ namespace BeerDrive.DAL.Implementations
         private GenericRepository<BD_Categories> categoryRepository;
         private GenericRepository<BD_Products> productRepository;
         private UserRepository userRepository;
+        private GenericRepository<BD_Customers> customerRepository;
         private GenericRepository<BD_Orders> orderRepository;
         private GenericRepository<BD_OrderDetails> orderDetailRepository;
         private GenericRepository<BD_Suppliers> supplierRepository;
@@ -56,6 +57,17 @@ namespace BeerDrive.DAL.Implementations
                     userRepository = new UserRepository(context);
 
                 return userRepository;
+            }
+        }
+
+        public GenericRepository<BD_Customers> CustomerRepository
+        {
+            get
+            {
+                if (customerRepository == null)
+                    customerRepository = new GenericRepository<BD_Customers>(context);
+
+                return customerRepository;
             }
         }
 
@@ -168,7 +180,7 @@ namespace BeerDrive.DAL.Implementations
                 return userRoleRepository;
             }
         }
-        
+
         public GenericRepository<BD_MobileIndexes> MobileIndexRepository
         {
             get
@@ -179,7 +191,7 @@ namespace BeerDrive.DAL.Implementations
                 return mobileIndexRepository;
             }
         }
-        
+
         public GenericRepository<BD_SupplierContacts> SupplierContactRepository
         {
             get

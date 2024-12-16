@@ -81,6 +81,7 @@ namespace BeerDrive.UI.Modules
         }
 
         private Guid? TransactionId;
+        private Guid? CustomerId;
 
         public decimal Change
         {
@@ -316,6 +317,46 @@ namespace BeerDrive.UI.Modules
         {
             SetFocus(barcodeTxt);
 
+            if (TransactionId == null)
+            {
+                XtraMessageBox.Show("ტრანზაქციის იდენტიფიკატორი ცარიელია", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (PayTypeId == null)
+            {
+                XtraMessageBox.Show("აირჩიეთ გადახდის მეთოდი", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (PayTypeId == PayTypesEnum.Cash)
+            {
+                if (Cash == 0)
+                {
+                    XtraMessageBox.Show("თანხა (მიღებული) ცარიელია", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (Change < 0)
+                {
+                    XtraMessageBox.Show("არასაკმარისი თანხა", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            if (CustomerId == null)
+            {
+                var form = new SearchCustomerForm();
+
+                if (form.ShowDialog() == DialogResult.OK && form.CustomerId == null)
+                {
+                    XtraMessageBox.Show("კლიენტი ცარიელია", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                CustomerId = form.CustomerId;
+            }
+
             if (XtraMessageBox.Show("მონაცემები დაფიქსირდება ბაზაში. გავაგრძელოთ?", "შეტყობინება", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
@@ -323,6 +364,7 @@ namespace BeerDrive.UI.Modules
             {
                 Id = TransactionId,
                 PayTypeId = PayTypeId,
+                CustomerId = CustomerId,
                 Cash = Cash,
                 Change = Change
             };
@@ -336,6 +378,7 @@ namespace BeerDrive.UI.Modules
         private void Clear()
         {
             TransactionId = null;
+            CustomerId = null;
             PayTypeId = null;
             getTransactionDetailDtoBindingSource.Clear();
             TotalQuantity = 0;

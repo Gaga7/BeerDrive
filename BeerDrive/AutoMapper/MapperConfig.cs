@@ -39,6 +39,7 @@ namespace BeerDrive.AutoMapper
                 cfg.CreateMap<BD_SupplierContacts, GetSupplierWithContractDto>()
                 .ForMember(f => f.Id, n => n.Ignore())
                 .ForMember(f => f.DateCreated, n => n.Ignore());
+                cfg.CreateMap<BD_Customers, GetCustomerDto>();
                 cfg.CreateMap<BD_Users, GetUserDto>()
                 .ForMember(f => f.Position, n => n.MapFrom(m => m.BD_Positions.Name));
                 cfg.CreateMap<BD_Transactions, GetTransactionDto>()
@@ -60,6 +61,7 @@ namespace BeerDrive.AutoMapper
                 cfg.CreateMap<SetRoleDto, BD_Roles>();
                 cfg.CreateMap<SetSupplierDto, BD_Suppliers>();
                 cfg.CreateMap<SetSupplierDto, BD_SupplierContacts>();
+                cfg.CreateMap<SetCustomerDto, BD_Customers>();
                 cfg.CreateMap<SetUserDto, BD_Users>()
                 .ForMember(f => f.Password, n => n.Ignore());
                 cfg.CreateMap<SetTransactionDetailDto, BD_TransactionDetails>()

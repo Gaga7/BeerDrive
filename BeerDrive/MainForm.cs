@@ -63,6 +63,7 @@ namespace BeerDrive
             accordionControlElementCategories.Visible = Globals.User.IsAdmin;
             accordionControlElementProducts.Visible = Globals.User.IsAdmin || Globals.User.IsManager;
             accordionControlElementUsers.Visible = Globals.User.IsAdmin;
+            accordionControlElementCustomers.Visible = Globals.User.IsAdmin || Globals.User.IsOperator || Globals.User.IsManager;
             accordionControlElementOrders.Visible = Globals.User.IsAdmin || Globals.User.IsOperator;
             accordionControlElementOrderDetails.Visible = Globals.User.IsAdmin || Globals.User.IsOperator;
             accordionControlElementSuppliers.Visible = Globals.User.IsAdmin;
@@ -93,6 +94,11 @@ namespace BeerDrive
         private async void AccordionControlElementUsers_Click(object sender, EventArgs e)
         {
             await InitializeControl("UserControl");
+        }
+
+        private async void AccordionControlElementCustomers_Click(object sender, EventArgs e)
+        {
+            await InitializeControl("CustomerControl");
         }
 
         private async void AccordionControlElementOrders_Click(object sender, EventArgs e)

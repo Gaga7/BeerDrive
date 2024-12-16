@@ -255,6 +255,7 @@ namespace BeerDrive.Presenters
                 }
 
                 transaction.PayTypeId = model.PayTypeId.Value;
+                transaction.CustomerId = model.CustomerId;
                 transaction.Cash = model.Cash;
                 transaction.Change = model.Change;
                 transaction.TransactionStatusTypeId = TransactionStatusTypesEnum.Completed;
@@ -270,6 +271,18 @@ namespace BeerDrive.Presenters
                     waitingTransaction.TransactionStatusTypeId = TransactionStatusTypesEnum.WorkingProcess;
 
                     await unitOfWork.TransactionRepository.UpdateAsync(waitingTransaction.Id, waitingTransaction);
+                }
+
+                if (model.CustomerId != null)
+                {
+                    var customer = await unitOfWork.CustomerRepository.ReadAsync(model.CustomerId.Value);
+
+                    if (customer != null)
+                    {
+                        customer.Score += transaction.TotalAmount.GetValueOrDefault();
+
+                        await unitOfWork.CustomerRepository.UpdateAsync(customer.Id, customer);
+                    }
                 }
 
                 await unitOfWork.SaveAsync();
