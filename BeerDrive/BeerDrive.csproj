@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Base\BasePresenter.cs" />
     <Compile Include="DTOs\GetCategoryDto.cs" />
+    <Compile Include="DTOs\GetCustomerDto.cs" />
     <Compile Include="DTOs\GetMeasureUnitTypeDto.cs" />
     <Compile Include="DTOs\GetMobileIndexDto.cs" />
     <Compile Include="DTOs\GetOrderDetailDto.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="DTOs\GetTerminalDto.cs" />
     <Compile Include="DTOs\GetTransactionDetailDto.cs" />
     <Compile Include="DTOs\GetTransactionDto.cs" />
+    <Compile Include="DTOs\SetCustomerDto.cs" />
     <Compile Include="DTOs\SetPayDto.cs" />
     <Compile Include="DTOs\SetCategoryDto.cs" />
     <Compile Include="DTOs\GetUserDto.cs" />
@@ -125,6 +127,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Presenters\CategoryPresenter.cs" />
+    <Compile Include="Presenters\CustomerPresenter.cs" />
     <Compile Include="Presenters\MeasureUnitTypePresenter.cs" />
     <Compile Include="Presenters\MobileIndexPresenter.cs" />
     <Compile Include="Presenters\OrderDetailPresenter.cs" />
@@ -145,6 +148,12 @@
     </Compile>
     <Compile Include="UI\Forms\AddOrUpdateCategoryForm.Designer.cs">
       <DependentUpon>AddOrUpdateCategoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\AddOrUpdateCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\AddOrUpdateCustomerForm.Designer.cs">
+      <DependentUpon>AddOrUpdateCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\AddOrUpdateOrderForm.cs">
       <SubType>Form</SubType>
@@ -194,6 +203,12 @@
     <Compile Include="UI\Forms\OneTimeCodeForm.Designer.cs">
       <DependentUpon>OneTimeCodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\SearchCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\SearchCustomerForm.Designer.cs">
+      <DependentUpon>SearchCustomerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\SetPriceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +232,12 @@
     </Compile>
     <Compile Include="UI\Modules\CategoryControl.Designer.cs">
       <DependentUpon>CategoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Modules\CustomerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Modules\CustomerControl.Designer.cs">
+      <DependentUpon>CustomerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Modules\OrderControl.cs">
       <SubType>UserControl</SubType>
@@ -295,6 +316,9 @@
     <EmbeddedResource Include="UI\Forms\AddOrUpdateCategoryForm.resx">
       <DependentUpon>AddOrUpdateCategoryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\AddOrUpdateCustomerForm.resx">
+      <DependentUpon>AddOrUpdateCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\AddOrUpdateOrderForm.resx">
       <DependentUpon>AddOrUpdateOrderForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -319,6 +343,9 @@
     <EmbeddedResource Include="UI\Forms\OneTimeCodeForm.resx">
       <DependentUpon>OneTimeCodeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SearchCustomerForm.resx">
+      <DependentUpon>SearchCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SetPriceForm.resx">
       <DependentUpon>SetPriceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -330,6 +357,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Modules\CategoryControl.resx">
       <DependentUpon>CategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Modules\CustomerControl.resx">
+      <DependentUpon>CustomerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Modules\OrderControl.resx">
       <DependentUpon>OrderControl.cs</DependentUpon>
@@ -363,6 +393,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BeerDrive.DAL.Dto.CategoryDto.datasource" />
+    <None Include="Properties\DataSources\BeerDrive.DTOs.GetCustomerDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.GetOrderDetailDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.GetPositionDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.GetProductDto.datasource" />
@@ -375,6 +406,7 @@
     <None Include="Properties\DataSources\BeerDrive.DTOs.OrderDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.ProductDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetCategoryDto.datasource" />
+    <None Include="Properties\DataSources\BeerDrive.DTOs.SetCustomerDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetPositionDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetProductDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetRoleDto.datasource" />

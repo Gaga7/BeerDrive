@@ -53,6 +53,8 @@ namespace BeerDrive
             DevExpress.Utils.ToolTipItem toolTipItem10 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip11 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem11 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip12 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem12 = new DevExpress.Utils.ToolTipItem();
             this.fluentDesignFormContainer = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormContainer();
             this.accordionControl = new DevExpress.XtraBars.Navigation.AccordionControl();
             this.accordionControlElementTerminal = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -68,6 +70,7 @@ namespace BeerDrive
             this.accordionControlElementRoles = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.fluentDesignFormControl1 = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl();
             this.fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(this.components);
+            this.accordionControlElementCustomers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentFormDefaultManager1)).BeginInit();
@@ -96,7 +99,8 @@ namespace BeerDrive
             this.accordionControlElementSuppliers,
             this.accordionControlElementPositions,
             this.accordionControlElementUsers,
-            this.accordionControlElementRoles});
+            this.accordionControlElementRoles,
+            this.accordionControlElementCustomers});
             this.accordionControl.Location = new System.Drawing.Point(0, 39);
             this.accordionControl.Margin = new System.Windows.Forms.Padding(8);
             this.accordionControl.Name = "accordionControl";
@@ -241,6 +245,17 @@ namespace BeerDrive
             this.fluentFormDefaultManager1.DockingEnabled = false;
             this.fluentFormDefaultManager1.Form = this;
             // 
+            // accordionControlElementCustomers
+            // 
+            this.accordionControlElementCustomers.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElementCustomers.ImageOptions.Image")));
+            this.accordionControlElementCustomers.Name = "accordionControlElementCustomers";
+            this.accordionControlElementCustomers.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            toolTipItem12.Text = "კლიენტები";
+            superToolTip12.Items.Add(toolTipItem12);
+            this.accordionControlElementCustomers.SuperTip = superToolTip12;
+            this.accordionControlElementCustomers.Text = "კლიენტები";
+            this.accordionControlElementCustomers.Click += new System.EventHandler(this.AccordionControlElementCustomers_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -281,5 +296,6 @@ namespace BeerDrive
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementPositions;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementTransactions;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementTransactionDetails;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementCustomers;
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Basics\AuditableEntity.cs" />
     <Compile Include="Commons\RandomCodeGenerator.cs" />
     <Compile Include="Context\BD_Categories.cs" />
+    <Compile Include="Context\BD_Customers.cs" />
     <Compile Include="Context\BD_MeasureUnitTypes.cs" />
     <Compile Include="Context\BD_PayTypes.cs" />
     <Compile Include="Context\BD_Roles.cs" />

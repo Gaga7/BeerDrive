@@ -21,6 +21,7 @@ namespace BeerDrive.DAL.Context
 
         public virtual DbSet<BD_Categories> BD_Categories { get; set; }
         public virtual DbSet<BD_Users> BD_Users { get; set; }
+        public virtual DbSet<BD_Customers> BD_Customers { get; set; }
         public virtual DbSet<BD_MobileIndexes> BD_MobileIndexes { get; set; }
         public virtual DbSet<BD_MeasureUnitTypes> BD_MeasureUnitTypes { get; set; }
         public virtual DbSet<BD_OrderDetails> BD_OrderDetails { get; set; }

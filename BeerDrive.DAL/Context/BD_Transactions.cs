@@ -13,6 +13,8 @@ namespace BeerDrive.DAL.Context
 
         public Guid? PayTypeId { get; set; }
 
+        public Guid? CustomerId { get; set; }
+
         public Guid TransactionStatusTypeId { get; set; }
 
         public string TransactionNumber { get; set; }
