@@ -91,6 +91,8 @@
     <Compile Include="Base\BasePresenter.cs" />
     <Compile Include="DTOs\GetCategoryDto.cs" />
     <Compile Include="DTOs\GetCustomerDto.cs" />
+    <Compile Include="DTOs\GetExchangeRateDto.cs" />
+    <Compile Include="DTOs\GetExchangeTypeDto.cs" />
     <Compile Include="DTOs\GetMeasureUnitTypeDto.cs" />
     <Compile Include="DTOs\GetMobileIndexDto.cs" />
     <Compile Include="DTOs\GetOrderDetailDto.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="DTOs\GetTransactionDetailDto.cs" />
     <Compile Include="DTOs\GetTransactionDto.cs" />
     <Compile Include="DTOs\SetCustomerDto.cs" />
+    <Compile Include="DTOs\SetExchangeRateDto.cs" />
     <Compile Include="DTOs\SetPayDto.cs" />
     <Compile Include="DTOs\SetCategoryDto.cs" />
     <Compile Include="DTOs\GetUserDto.cs" />
@@ -128,6 +131,8 @@
     </Compile>
     <Compile Include="Presenters\CategoryPresenter.cs" />
     <Compile Include="Presenters\CustomerPresenter.cs" />
+    <Compile Include="Presenters\ExchangeRatePresenter.cs" />
+    <Compile Include="Presenters\ExchangeTypePresenter.cs" />
     <Compile Include="Presenters\MeasureUnitTypePresenter.cs" />
     <Compile Include="Presenters\MobileIndexPresenter.cs" />
     <Compile Include="Presenters\OrderDetailPresenter.cs" />
@@ -154,6 +159,12 @@
     </Compile>
     <Compile Include="UI\Forms\AddOrUpdateCustomerForm.Designer.cs">
       <DependentUpon>AddOrUpdateCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\AddOrUpdateExchangeRateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\AddOrUpdateExchangeRateForm.Designer.cs">
+      <DependentUpon>AddOrUpdateExchangeRateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\AddOrUpdateOrderForm.cs">
       <SubType>Form</SubType>
@@ -239,6 +250,12 @@
     <Compile Include="UI\Modules\CustomerControl.Designer.cs">
       <DependentUpon>CustomerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Modules\ExchangeRatesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Modules\ExchangeRatesControl.Designer.cs">
+      <DependentUpon>ExchangeRatesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Modules\OrderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -319,6 +336,9 @@
     <EmbeddedResource Include="UI\Forms\AddOrUpdateCustomerForm.resx">
       <DependentUpon>AddOrUpdateCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\AddOrUpdateExchangeRateForm.resx">
+      <DependentUpon>AddOrUpdateExchangeRateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\AddOrUpdateOrderForm.resx">
       <DependentUpon>AddOrUpdateOrderForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -361,6 +381,9 @@
     <EmbeddedResource Include="UI\Modules\CustomerControl.resx">
       <DependentUpon>CustomerControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Modules\ExchangeRatesControl.resx">
+      <DependentUpon>ExchangeRatesControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Modules\OrderControl.resx">
       <DependentUpon>OrderControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -394,6 +417,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BeerDrive.DAL.Dto.CategoryDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.GetCustomerDto.datasource" />
+    <None Include="Properties\DataSources\BeerDrive.DTOs.GetExchangeRateDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.GetOrderDetailDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.GetPositionDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.GetProductDto.datasource" />
@@ -407,6 +431,7 @@
     <None Include="Properties\DataSources\BeerDrive.DTOs.ProductDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetCategoryDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetCustomerDto.datasource" />
+    <None Include="Properties\DataSources\BeerDrive.DTOs.SetExchangeRateDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetPositionDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetProductDto.datasource" />
     <None Include="Properties\DataSources\BeerDrive.DTOs.SetRoleDto.datasource" />

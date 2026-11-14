@@ -60,6 +60,9 @@
     <Compile Include="Commons\RandomCodeGenerator.cs" />
     <Compile Include="Context\BD_Categories.cs" />
     <Compile Include="Context\BD_Customers.cs" />
+    <Compile Include="Context\BD_CustomerScoreTransactions.cs" />
+    <Compile Include="Context\BD_ExchangeRates.cs" />
+    <Compile Include="Context\BD_ExchangeTypes.cs" />
     <Compile Include="Context\BD_MeasureUnitTypes.cs" />
     <Compile Include="Context\BD_PayTypes.cs" />
     <Compile Include="Context\BD_Roles.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Context\BeerDriveContext.cs" />
     <Compile Include="Cryptography\StringCipher.cs" />
     <Compile Include="Enums\CategoryTypesEnum.cs" />
+    <Compile Include="Enums\ExchangeTypesEnum.cs" />
     <Compile Include="Enums\OneTimeCodeTypesEnum.cs" />
     <Compile Include="Enums\PayTypesEnum.cs" />
     <Compile Include="Enums\TransactionStatusTypesEnum.cs" />

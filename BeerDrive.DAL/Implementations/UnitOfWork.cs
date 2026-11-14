@@ -26,6 +26,9 @@ namespace BeerDrive.DAL.Implementations
         private GenericRepository<BD_Positions> positionRepository;
         private GenericRepository<BD_UserRoles> userRoleRepository;
         private GenericRepository<BD_MobileIndexes> mobileIndexRepository;
+        private GenericRepository<BD_ExchangeTypes> exchangeTypeRepository;
+        private GenericRepository<BD_ExchangeRates> exchangeRateRepository;
+        private GenericRepository<BD_CustomerScoreTransactions> customerScoreTransactionRepository;
 
         public GenericRepository<BD_Categories> CategoryRepository
         {
@@ -200,6 +203,39 @@ namespace BeerDrive.DAL.Implementations
                     supplierContactRepository = new GenericRepository<BD_SupplierContacts>(context);
 
                 return supplierContactRepository;
+            }
+        }
+
+        public GenericRepository<BD_ExchangeTypes> ExchangeTypeRepository
+        {
+            get
+            {
+                if (exchangeTypeRepository == null)
+                    exchangeTypeRepository = new GenericRepository<BD_ExchangeTypes>(context);
+
+                return exchangeTypeRepository;
+            }
+        }
+
+        public GenericRepository<BD_ExchangeRates> ExchangeRateRepository
+        {
+            get
+            {
+                if (exchangeRateRepository == null)
+                    exchangeRateRepository = new GenericRepository<BD_ExchangeRates>(context);
+
+                return exchangeRateRepository;
+            }
+        }
+
+        public GenericRepository<BD_CustomerScoreTransactions> CustomerScoreTransactionRepository
+        {
+            get
+            {
+                if (customerScoreTransactionRepository == null)
+                    customerScoreTransactionRepository = new GenericRepository<BD_CustomerScoreTransactions>(context);
+
+                return customerScoreTransactionRepository;
             }
         }
 

@@ -55,6 +55,8 @@ namespace BeerDrive
             DevExpress.Utils.ToolTipItem toolTipItem11 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip12 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem12 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip13 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem13 = new DevExpress.Utils.ToolTipItem();
             this.fluentDesignFormContainer = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormContainer();
             this.accordionControl = new DevExpress.XtraBars.Navigation.AccordionControl();
             this.accordionControlElementTerminal = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -68,9 +70,10 @@ namespace BeerDrive
             this.accordionControlElementPositions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElementUsers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElementRoles = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.accordionControlElementCustomers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.fluentDesignFormControl1 = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl();
             this.fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(this.components);
-            this.accordionControlElementCustomers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.accordionControlElementExchangeRates = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentFormDefaultManager1)).BeginInit();
@@ -100,7 +103,8 @@ namespace BeerDrive
             this.accordionControlElementPositions,
             this.accordionControlElementUsers,
             this.accordionControlElementRoles,
-            this.accordionControlElementCustomers});
+            this.accordionControlElementCustomers,
+            this.accordionControlElementExchangeRates});
             this.accordionControl.Location = new System.Drawing.Point(0, 39);
             this.accordionControl.Margin = new System.Windows.Forms.Padding(8);
             this.accordionControl.Name = "accordionControl";
@@ -230,6 +234,17 @@ namespace BeerDrive
             this.accordionControlElementRoles.Text = "როლები";
             this.accordionControlElementRoles.Click += new System.EventHandler(this.AccordionControlElementRoles_Click);
             // 
+            // accordionControlElementCustomers
+            // 
+            this.accordionControlElementCustomers.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElementCustomers.ImageOptions.Image")));
+            this.accordionControlElementCustomers.Name = "accordionControlElementCustomers";
+            this.accordionControlElementCustomers.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            toolTipItem12.Text = "კლიენტები";
+            superToolTip12.Items.Add(toolTipItem12);
+            this.accordionControlElementCustomers.SuperTip = superToolTip12;
+            this.accordionControlElementCustomers.Text = "კლიენტები";
+            this.accordionControlElementCustomers.Click += new System.EventHandler(this.AccordionControlElementCustomers_Click);
+            // 
             // fluentDesignFormControl1
             // 
             this.fluentDesignFormControl1.FluentDesignForm = this;
@@ -245,16 +260,16 @@ namespace BeerDrive
             this.fluentFormDefaultManager1.DockingEnabled = false;
             this.fluentFormDefaultManager1.Form = this;
             // 
-            // accordionControlElementCustomers
+            // accordionControlElementExchangeRates
             // 
-            this.accordionControlElementCustomers.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElementCustomers.ImageOptions.Image")));
-            this.accordionControlElementCustomers.Name = "accordionControlElementCustomers";
-            this.accordionControlElementCustomers.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            toolTipItem12.Text = "კლიენტები";
-            superToolTip12.Items.Add(toolTipItem12);
-            this.accordionControlElementCustomers.SuperTip = superToolTip12;
-            this.accordionControlElementCustomers.Text = "კლიენტები";
-            this.accordionControlElementCustomers.Click += new System.EventHandler(this.AccordionControlElementCustomers_Click);
+            this.accordionControlElementExchangeRates.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElementExchangeRates.ImageOptions.Image")));
+            this.accordionControlElementExchangeRates.Name = "accordionControlElementExchangeRates";
+            this.accordionControlElementExchangeRates.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            toolTipItem13.Text = "კურსები";
+            superToolTip13.Items.Add(toolTipItem13);
+            this.accordionControlElementExchangeRates.SuperTip = superToolTip13;
+            this.accordionControlElementExchangeRates.Text = "კურსები";
+            this.accordionControlElementExchangeRates.Click += new System.EventHandler(this.AccordionControlElementExchangeRates_Click);
             // 
             // MainForm
             // 
@@ -297,5 +312,6 @@ namespace BeerDrive
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementTransactions;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementTransactionDetails;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementCustomers;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElementExchangeRates;
     }
 }

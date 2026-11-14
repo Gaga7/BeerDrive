@@ -36,6 +36,9 @@ namespace BeerDrive.DAL.Context
         public virtual DbSet<BD_TransactionStatusTypes> BD_TransactionStatusTypes { get; set; }
         public virtual DbSet<BD_Roles> BD_Roles { get; set; }
         public virtual DbSet<BD_UserRoles> BD_UserRoles { get; set; }
+        public virtual DbSet<BD_ExchangeTypes> BD_ExchangeTypes { get; set; }
+        public virtual DbSet<BD_ExchangeRates> BD_ExchangeRates { get; set; }
+        public virtual DbSet<BD_CustomerScoreTransactions> BD_CustomerScoreTransactions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -149,6 +152,30 @@ namespace BeerDrive.DAL.Context
                 .HasMany(e => e.BD_UserRoles)
                 .WithRequired(e => e.BD_Roles)
                 .HasForeignKey(e => e.RoleId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<BD_ExchangeTypes>()
+                .HasMany(e => e.BD_ExchangeRates)
+                .WithRequired(e => e.BD_ExchangeTypes)
+                .HasForeignKey(e => e.ExchangeTypeId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<BD_Customers>()
+                .HasMany(e => e.BD_CustomerScoreTransactions)
+                .WithRequired(e => e.BD_Customers)
+                .HasForeignKey(e => e.CustomerId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<BD_ExchangeRates>()
+                .HasMany(e => e.BD_CustomerScoreTransactions)
+                .WithRequired(e => e.BD_ExchangeRates)
+                .HasForeignKey(e => e.ExchangeRateId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<BD_CustomerScoreTransactions>()
+                .HasMany(e => e.BD_Transactions)
+                .WithRequired(e => e.BD_CustomerScoreTransactions)
+                .HasForeignKey(e => e.CustomerScoreTransactionId)
                 .WillCascadeOnDelete(false);
         }
 

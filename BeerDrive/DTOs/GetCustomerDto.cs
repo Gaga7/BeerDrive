@@ -9,5 +9,6 @@ namespace BeerDrive.DTOs
         public string LastName { get; set; }
         public string Mobile { get; set; }
         public decimal Score { get; set; }
+        public decimal ScoreInAmount { get; set; }
     }
 }
