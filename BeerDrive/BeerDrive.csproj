@@ -123,6 +123,7 @@
     <Compile Include="DTOs\SetTransactionDetailDto.cs" />
     <Compile Include="DTOs\SetUserDto.cs" />
     <Compile Include="Global\Globals.cs" />
+    <Compile Include="Helpers\BarcodeScannerHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

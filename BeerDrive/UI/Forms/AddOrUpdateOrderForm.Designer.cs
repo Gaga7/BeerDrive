@@ -159,7 +159,7 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.totalPriceSpn.Location = new System.Drawing.Point(807, 38);
+            this.totalPriceSpn.Location = new System.Drawing.Point(787, 38);
             this.totalPriceSpn.MenuManager = this.barManager1;
             this.totalPriceSpn.MinimumSize = new System.Drawing.Size(122, 0);
             this.totalPriceSpn.Name = "totalPriceSpn";
@@ -172,7 +172,7 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.totalPriceSpn.Size = new System.Drawing.Size(128, 24);
+            this.totalPriceSpn.Size = new System.Drawing.Size(148, 24);
             this.totalPriceSpn.StyleController = this.layoutControl1;
             this.totalPriceSpn.TabIndex = 14;
             // 
@@ -350,20 +350,21 @@ namespace BeerDrive.UI.Forms
             // 
             // productCmb
             // 
-            this.productCmb.Location = new System.Drawing.Point(84, 38);
+            this.productCmb.Location = new System.Drawing.Point(68, 38);
             this.productCmb.MenuManager = this.barManager1;
             this.productCmb.MinimumSize = new System.Drawing.Size(244, 0);
             this.productCmb.Name = "productCmb";
             this.productCmb.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.productCmb.Size = new System.Drawing.Size(258, 22);
+            this.productCmb.Size = new System.Drawing.Size(274, 22);
             this.productCmb.StyleController = this.layoutControl1;
             this.productCmb.TabIndex = 6;
+            this.productCmb.SelectedIndexChanged += new System.EventHandler(this.ProductCmb_SelectedIndexChanged);
             // 
             // orderDateDe
             // 
             this.orderDateDe.EditValue = null;
-            this.orderDateDe.Location = new System.Drawing.Point(125, 12);
+            this.orderDateDe.Location = new System.Drawing.Point(99, 12);
             this.orderDateDe.MaximumSize = new System.Drawing.Size(130, 26);
             this.orderDateDe.MenuManager = this.barManager1;
             this.orderDateDe.MinimumSize = new System.Drawing.Size(130, 0);
@@ -539,7 +540,7 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.unitPriceSpn.Location = new System.Drawing.Point(589, 38);
+            this.unitPriceSpn.Location = new System.Drawing.Point(580, 38);
             this.unitPriceSpn.MinimumSize = new System.Drawing.Size(122, 0);
             this.unitPriceSpn.Name = "unitPriceSpn";
             this.unitPriceSpn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -551,7 +552,7 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.unitPriceSpn.Size = new System.Drawing.Size(127, 24);
+            this.unitPriceSpn.Size = new System.Drawing.Size(136, 24);
             this.unitPriceSpn.StyleController = this.layoutControl1;
             this.unitPriceSpn.TabIndex = 7;
             // 
@@ -562,7 +563,7 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.quantitySpn.Location = new System.Drawing.Point(420, 38);
+            this.quantitySpn.Location = new System.Drawing.Point(402, 38);
             this.quantitySpn.MenuManager = this.barManager1;
             this.quantitySpn.MinimumSize = new System.Drawing.Size(121, 0);
             this.quantitySpn.Name = "quantitySpn";
@@ -575,7 +576,7 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.quantitySpn.Size = new System.Drawing.Size(128, 24);
+            this.quantitySpn.Size = new System.Drawing.Size(146, 24);
             this.quantitySpn.StyleController = this.layoutControl1;
             this.quantitySpn.TabIndex = 8;
             // 
@@ -586,7 +587,7 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.discountSpn.Location = new System.Drawing.Point(1024, 38);
+            this.discountSpn.Location = new System.Drawing.Point(1002, 38);
             this.discountSpn.MenuManager = this.barManager1;
             this.discountSpn.MinimumSize = new System.Drawing.Size(122, 0);
             this.discountSpn.Name = "discountSpn";
@@ -599,13 +600,13 @@ namespace BeerDrive.UI.Forms
             0,
             0,
             0});
-            this.discountSpn.Size = new System.Drawing.Size(128, 24);
+            this.discountSpn.Size = new System.Drawing.Size(150, 24);
             this.discountSpn.StyleController = this.layoutControl1;
             this.discountSpn.TabIndex = 9;
             // 
             // userCmb
             // 
-            this.userCmb.Location = new System.Drawing.Point(373, 12);
+            this.userCmb.Location = new System.Drawing.Point(321, 12);
             this.userCmb.MaximumSize = new System.Drawing.Size(160, 0);
             this.userCmb.MenuManager = this.barManager1;
             this.userCmb.MinimumSize = new System.Drawing.Size(160, 0);
@@ -658,10 +659,10 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem2.Control = this.orderDateDe;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(247, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(221, 26);
             this.layoutControlItem2.StartNewLine = true;
             this.layoutControlItem2.Text = "შეკვეთის თარიღი";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(110, 17);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // layoutControlItem3
             // 
@@ -671,7 +672,7 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem3.Size = new System.Drawing.Size(334, 31);
             this.layoutControlItem3.Text = "პროდუქტი";
             this.layoutControlItem3.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(67, 17);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(51, 16);
             this.layoutControlItem3.TextToControlDistance = 5;
             // 
             // layoutControlItem5
@@ -683,7 +684,7 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem5.Text = "რაოდენობა";
             this.layoutControlItem5.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(70, 17);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(52, 16);
             this.layoutControlItem5.TextToControlDistance = 3;
             // 
             // layoutControlItem4
@@ -694,7 +695,7 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem4.Size = new System.Drawing.Size(167, 31);
             this.layoutControlItem4.Text = "ფასი";
             this.layoutControlItem4.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(31, 17);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(22, 16);
             this.layoutControlItem4.TextToControlDistance = 5;
             // 
             // layoutControlItem6
@@ -705,7 +706,7 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem6.Size = new System.Drawing.Size(216, 31);
             this.layoutControlItem6.Text = "ფასდაკლება";
             this.layoutControlItem6.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(79, 17);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(57, 16);
             this.layoutControlItem6.TextToControlDistance = 5;
             // 
             // layoutControlItem7
@@ -780,16 +781,16 @@ namespace BeerDrive.UI.Forms
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.userCmb;
-            this.layoutControlItem10.Location = new System.Drawing.Point(248, 0);
+            this.layoutControlItem10.Location = new System.Drawing.Point(222, 0);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(981, 26);
+            this.layoutControlItem10.Size = new System.Drawing.Size(1007, 26);
             this.layoutControlItem10.Text = "მომხმარებელი";
-            this.layoutControlItem10.TextSize = new System.Drawing.Size(110, 17);
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(84, 16);
             // 
             // simpleSeparator7
             // 
             this.simpleSeparator7.AllowHotTrack = false;
-            this.simpleSeparator7.Location = new System.Drawing.Point(247, 0);
+            this.simpleSeparator7.Location = new System.Drawing.Point(221, 0);
             this.simpleSeparator7.Name = "simpleSeparator7";
             this.simpleSeparator7.Size = new System.Drawing.Size(1, 26);
             // 
@@ -801,7 +802,7 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem11.Size = new System.Drawing.Size(218, 31);
             this.layoutControlItem11.Text = "თანხა (სულ)";
             this.layoutControlItem11.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(81, 17);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(61, 16);
             this.layoutControlItem11.TextToControlDistance = 5;
             // 
             // simpleSeparator8

@@ -1,4 +1,5 @@
 ﻿using BeerDrive.DTOs;
+using BeerDrive.Helpers;
 using BeerDrive.Presenters;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
@@ -116,12 +117,110 @@ namespace BeerDrive.UI.Forms
 
         private readonly Guid _supplierId;
         private List<GetOrderDetailDto> orderDetails;
+        private List<GetProductDto> _products;
+        private bool _isNewSearch = true;
 
         public AddOrUpdateOrderForm(Guid supplierId)
         {
             InitializeComponent();
 
             _supplierId = supplierId;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            var key = keyData & Keys.KeyCode;
+
+            if (BarcodeScannerHelper.IsScannerPrefix(keyData))
+            {
+                BarcodeScannerHelper.PrepareForScan(productCmb);
+                _isNewSearch = false;
+                return true;
+            }
+
+            if (key == Keys.Enter && productCmb.ContainsFocus)
+            {
+                var text = productCmb.Text?.Trim();
+                if (!string.IsNullOrEmpty(text))
+                {
+                    _isNewSearch = true;
+                    ProcessProductSearch(text);
+                    return true;
+                }
+            }
+            else if (productCmb.ContainsFocus)
+            {
+                bool isPaste = key == Keys.V && (keyData & Keys.Control) == Keys.Control;
+                bool isAlphanumeric = (key >= Keys.D0 && key <= Keys.D9) ||
+                                     (key >= Keys.NumPad0 && key <= Keys.NumPad9) ||
+                                     (key >= Keys.A && key <= Keys.Z);
+
+                if (isPaste)
+                {
+                    _isNewSearch = false;
+                    productCmb.Text = string.Empty;
+                }
+                else if (_isNewSearch && isAlphanumeric)
+                {
+                    _isNewSearch = false;
+                    productCmb.Text = string.Empty;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private async void ProcessProductSearch(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return;
+
+            query = query.Trim();
+
+            var product = ((_products?.FirstOrDefault(p => !string.IsNullOrEmpty(p.Barcode) && p.Barcode.Trim() == query)) ?? (_products?.FirstOrDefault(p => string.Equals(p.Name, query, StringComparison.OrdinalIgnoreCase)))) ?? (_products?.FirstOrDefault(p => p.Name != null && p.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0));
+
+            if (product == null)
+            {
+                var dbProducts = await ProductPresenter.GetAsync(r => r.Barcode == query);
+                if (dbProducts == null || !dbProducts.Any())
+                {
+                    dbProducts = await ProductPresenter.GetAsync(r => r.Name.Contains(query));
+                }
+
+                if (dbProducts != null && dbProducts.Any())
+                {
+                    var dbProduct = dbProducts.First();
+                    if (dbProduct.SupplierId != _supplierId)
+                    {
+                        XtraMessageBox.Show("ეს პროდუქტი ეკუთვნის სხვა მომწოდებელს", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        productCmb.Focus();
+                        return;
+                    }
+
+                    product = dbProduct;
+
+                    if (_products != null && _products.All(p => p.Id != product.Id))
+                    {
+                        _products.Add(product);
+                        productCmb.Properties.Items.Add(new ImageListBoxItem(product.Id, product.Name));
+                    }
+                }
+            }
+
+            if (product != null)
+            {
+                productCmb.ClosePopup();
+                ProductId = product.Id;
+                _isNewSearch = true;
+
+                productCmb.Focus();
+            }
+            else
+            {
+                _isNewSearch = true;
+                XtraMessageBox.Show($"პროდუქტი დასახელებით ან ბარკოდით '{query}' ვერ მოიძებნა", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                productCmb.Focus();
+            }
         }
 
         private void AddOrUpdateOrderForm_Load(object sender, EventArgs e)
@@ -135,11 +234,11 @@ namespace BeerDrive.UI.Forms
 
         private void SetValue(ComboBoxEdit control, Guid? value)
         {
-            foreach (ImageListBoxItem item in control.Properties.Items)
+            for (int i = 0; i < control.Properties.Items.Count; i++)
             {
-                if ((Guid?)item.Value == value)
+                if (control.Properties.Items[i] is ImageListBoxItem item && (Guid?)item.Value == value)
                 {
-                    control.SelectedItem = item;
+                    control.SelectedIndex = i;
                     return;
                 }
             }
@@ -148,12 +247,16 @@ namespace BeerDrive.UI.Forms
         private async void FillProducts()
         {
             var entities = await ProductPresenter.GetAsync(r => r.SupplierId == _supplierId);
-            var datasource = entities.Select(s => new ImageListBoxItem(s.Id, s.Name)).ToList();
+            _products = entities?.ToList() ?? new List<GetProductDto>();
+            var datasource = _products.Select(s => new ImageListBoxItem(s.Id, s.Name)).ToList();
 
+            productCmb.Properties.Items.Clear();
             productCmb.Properties.Items.Add(new ImageListBoxItem(null, "გთხოვთ აირჩიოთ..."));
             productCmb.Properties.Items.AddRange(datasource);
 
             productCmb.SelectedIndex = 0;
+
+            BeginInvoke(new Action(() => productCmb.Focus()));
         }
 
         private async void FillUsers()
@@ -271,6 +374,11 @@ namespace BeerDrive.UI.Forms
 
         }
 
+        private void ProductCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _isNewSearch = true;
+        }
+
         private void Clear()
         {
             ProductId = null;
@@ -278,6 +386,7 @@ namespace BeerDrive.UI.Forms
             UnitPrice = 0;
             TotalPrice = 0;
             Discount = 0;
+            _isNewSearch = true;
         }
     }
 }

@@ -2,6 +2,7 @@
 using BeerDrive.DAL.Exceptions;
 using BeerDrive.DTOs;
 using BeerDrive.Global;
+using BeerDrive.Helpers;
 using BeerDrive.Presenters;
 using BeerDrive.UI.Forms;
 using DevExpress.DXperience.Demos;
@@ -543,30 +544,15 @@ namespace BeerDrive.UI.Modules
             FillTerminal();
         }
 
-        //private string _barcode = "";
-        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        //{
-        //    char c = (char)keyData;
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (BarcodeScannerHelper.IsScannerPrefix(keyData))
+            {
+                BarcodeScannerHelper.PrepareForScan(barcodeTxt);
+                return true;
+            }
 
-        //    if (char.IsNumber(c))
-        //        _barcode += c;
-
-        //    if (c == (char)Keys.Return)
-        //    {
-        //        //var enter = new KeyPressEventArgs((char)Keys.Enter);
-
-        //        //Barcode = "";
-        //        //BarcodeTxt_KeyPress(null, enter);
-
-        //        //Task.Run(async () => await SearchBarcode());
-
-        //        Quantity = 0;
-        //        Cash = 0;
-
-        //        SetFocus(barcodeTxt);
-        //    }
-
-        //    return base.ProcessCmdKey(ref msg, keyData);
-        //}
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }
