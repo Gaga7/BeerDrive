@@ -116,10 +116,14 @@ namespace BeerDrive.Presenters
 
             using (var unitOfWork = new UnitOfWork())
             {
-                if (!await unitOfWork.SupplierRepository.CheckAsync(c => c.Id == id.Value))
+                var supplier = await unitOfWork.SupplierRepository.ReadAsync(id.Value);
+
+                if (supplier == null)
                     ValidationFault.Throw("ჩანაწერი ვერ მოიძებნა");
 
-                await unitOfWork.SupplierRepository.DeleteAsync(id.Value);
+                await unitOfWork.SupplierRepository.DeleteAsync(supplier.Id);
+                await unitOfWork.SupplierContactRepository.DeleteAsync(supplier.ContactId);
+
                 await unitOfWork.SaveAsync();
             }
         }

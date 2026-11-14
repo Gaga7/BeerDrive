@@ -3,6 +3,7 @@ using BeerDrive.DAL.Cryptography;
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace BeerDrive.DAL.Implementations.Services
 {
@@ -10,18 +11,19 @@ namespace BeerDrive.DAL.Implementations.Services
     {
         public static bool Send(string mailTo, string message)
         {
+            return SendAsync(mailTo, message).GetAwaiter().GetResult();
+        }
+
+        public static async Task<bool> SendAsync(string mailTo, string message)
+        {
             using (MailMessage mail = new MailMessage())
             {
                 var mailFrom = ConfigurationManager.AppSettings["EmailFrom"];
                 var password = StringCipher.Decrypt(ConfigurationManager.AppSettings["Password"]);
-                //var mailTo = ConfigurationManager.AppSettings["EmailTo"];
-
-                //var code = RandomCodeGenerator.GetNumber(4);
 
                 if (string.IsNullOrEmpty(mailFrom) ||
                     string.IsNullOrEmpty(password) ||
-                    string.IsNullOrEmpty(mailTo) /*||*/
-                    /*string.IsNullOrEmpty(code)*/)
+                    string.IsNullOrEmpty(mailTo))
                     return false;
 
                 mail.From = new MailAddress(mailFrom);
@@ -35,7 +37,7 @@ namespace BeerDrive.DAL.Implementations.Services
                     smtp.Credentials = new NetworkCredential(mailFrom, password);
                     smtp.EnableSsl = true;
 
-                    smtp.Send(mail);
+                    await smtp.SendMailAsync(mail);
                 }
 
                 return true;

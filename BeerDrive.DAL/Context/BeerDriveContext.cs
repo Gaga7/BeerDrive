@@ -179,6 +179,14 @@ namespace BeerDrive.DAL.Context
                 .WillCascadeOnDelete(false);
         }
 
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+                Audition(entry);
+
+            return base.SaveChanges();
+        }
+
         public override Task<int> SaveChangesAsync()
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
@@ -189,15 +197,17 @@ namespace BeerDrive.DAL.Context
 
         private void Audition(DbEntityEntry<AuditableEntity> entry)
         {
+            var userId = Identity.User?.Id ?? Guid.Empty;
+
             switch (entry.State)
             {
                 case EntityState.Added:
                     entry.Entity.DateCreated = DateTime.Now;
-                    entry.Entity.CreatedBy = Identity.User.Id;
+                    entry.Entity.CreatedBy = userId;
                     break;
                 case EntityState.Modified:
                     entry.Entity.DateChanged = DateTime.Now;
-                    entry.Entity.ChangedBy = Identity.User.Id;
+                    entry.Entity.ChangedBy = userId;
 
                     entry.Property(nameof(AuditableEntity.CreatedBy)).IsModified = false;
                     entry.Property(nameof(AuditableEntity.DateCreated)).IsModified = false;
@@ -206,10 +216,10 @@ namespace BeerDrive.DAL.Context
                     entry.Property(nameof(AuditableEntity.DateDeleted)).IsModified = false;
                     break;
                 case EntityState.Deleted:
-                    entry.State = EntityState.Unchanged;
+                    entry.State = EntityState.Modified;
 
                     entry.Entity.DateDeleted = DateTime.Now;
-                    entry.Entity.DeletedBy = Identity.User.Id;
+                    entry.Entity.DeletedBy = userId;
                     break;
             }
         }

@@ -115,8 +115,8 @@ namespace BeerDrive.Presenters
             if (model.ProductId == null)
                 ValidationFault.Throw("პროდუქტის იდენტიფიკატორი ცარიელია");
 
-            if (model.Quantity == null)
-                ValidationFault.Throw("რაოდენობა ცარიელია");
+            if (model.Quantity.GetValueOrDefault() <= 0)
+                ValidationFault.Throw("რაოდენობა მეტი უნდა იყოს 0-ზე");
 
             using (var unitOfWork = new UnitOfWork())
             {
@@ -166,8 +166,8 @@ namespace BeerDrive.Presenters
             if (id == null)
                 ValidationFault.Throw("იდენტიფიკატორი ცარიელია");
 
-            if (quantity.GetValueOrDefault() == 0)
-                ValidationFault.Throw("რაოდენობა ცარიელია");
+            if (quantity.GetValueOrDefault() <= 0)
+                ValidationFault.Throw("რაოდენობა მეტი უნდა იყოს 0-ზე");
 
             using (var unitOfWork = new UnitOfWork())
             {
@@ -243,7 +243,7 @@ namespace BeerDrive.Presenters
 
                 var message = $"<p>პროდუქტი: {product.Name}</p> <p>რაოდენობა: {entity.Quantity}</p> <p>კოდი: <strong>{code}</strong></p>";
 
-                if (!EmailService.Send(mailTo, message))
+                if (!await EmailService.SendAsync(mailTo, message))
                     ValidationFault.Throw("ერთჯერადი კოდის გაგზავნა ვერ განხორციალდა");
 
                 entity.Code = code;

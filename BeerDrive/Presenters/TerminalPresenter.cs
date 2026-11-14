@@ -133,8 +133,8 @@ namespace BeerDrive.Presenters
             if (transactionDetailModel.ProductId == null)
                 ValidationFault.Throw("პროდუქტის იდენტიფიკატორი ცარიელია");
 
-            if (transactionDetailModel.Quantity == null)
-                ValidationFault.Throw("რაოდენობა ცარიელია");
+            if (transactionDetailModel.Quantity.GetValueOrDefault() <= 0)
+                ValidationFault.Throw("რაოდენობა მეტი უნდა იყოს 0-ზე");
 
             using (var unitOfWork = new UnitOfWork())
             {
@@ -236,8 +236,15 @@ namespace BeerDrive.Presenters
             using (var unitOfWork = new UnitOfWork())
             {
                 var transaction = await unitOfWork.TransactionRepository.ReadAsync(model.Id.Value);
+
+                if (transaction == null)
+                    ValidationFault.Throw("ჩანაწერი ვერ მოიძებნა");
+
                 var waitingTransactions = await unitOfWork.TransactionRepository.ReadAsync(r => r.TransactionStatusTypeId == TransactionStatusTypesEnum.Waiting);
-                var transactionDetails = transaction.BD_TransactionDetails.Where(r => r.DateDeleted == null);
+                var transactionDetails = transaction.BD_TransactionDetails.Where(r => r.DateDeleted == null).ToList();
+
+                if (!transactionDetails.Any())
+                    ValidationFault.Throw("ტრანზაქციაში პროდუქტები არ არის დამატებული");
 
                 if (waitingTransactions.Count() > 1)
                     ValidationFault.Throw("მოიძებნა ერთზე მეტი რიგში მყოფი ტრანზაქცია");

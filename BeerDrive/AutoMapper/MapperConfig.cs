@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using BeerDrive.DAL.Context;
 using BeerDrive.DTOs;
+using System;
 using System.Linq;
 
 namespace BeerDrive.AutoMapper
 {
     public class MapperConfig
     {
-        public static Mapper InitializeAutomapper()
+        private static readonly Lazy<Mapper> _lazyMapper = new Lazy<Mapper>(() =>
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -57,8 +58,8 @@ namespace BeerDrive.AutoMapper
                 cfg.CreateMap<SetMeasureUnitTypeDto, BD_MeasureUnitTypes>();
                 cfg.CreateMap<SetOrderDetailDto, BD_OrderDetails>();
                 cfg.CreateMap<SetOrderDto, BD_Orders>()
-                .ForMember(f => f.TotalQuantity, n => n.MapFrom(m => m.OrderDetails.Sum(s => s.Quantity)))
-                .ForMember(f => f.TotalAmount, n => n.MapFrom(m => m.OrderDetails.Sum(s => s.TotalPrice)));
+                .ForMember(f => f.TotalQuantity, n => n.MapFrom(m => m.OrderDetails != null ? m.OrderDetails.Sum(s => s.Quantity) : 0))
+                .ForMember(f => f.TotalAmount, n => n.MapFrom(m => m.OrderDetails != null ? m.OrderDetails.Sum(s => s.TotalPrice) : 0));
                 cfg.CreateMap<SetPositionDto, BD_Positions>();
                 cfg.CreateMap<SetProductDto, BD_Products>();
                 cfg.CreateMap<SetRoleDto, BD_Roles>();
@@ -68,11 +69,16 @@ namespace BeerDrive.AutoMapper
                 cfg.CreateMap<SetUserDto, BD_Users>()
                 .ForMember(f => f.Password, n => n.Ignore());
                 cfg.CreateMap<SetTransactionDetailDto, BD_TransactionDetails>()
-                .ForMember(f => f.TotalPrice, n => n.MapFrom(m => m.Quantity.Value * m.UnitPrice.Value));
+                .ForMember(f => f.TotalPrice, n => n.MapFrom(m => m.Quantity.GetValueOrDefault() * m.UnitPrice.GetValueOrDefault()));
                 cfg.CreateMap<SetExchangeRateDto, BD_ExchangeRates>();
             });
 
             return new Mapper(config);
+        });
+
+        public static Mapper InitializeAutomapper()
+        {
+            return _lazyMapper.Value;
         }
     }
 }

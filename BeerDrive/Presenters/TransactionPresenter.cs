@@ -91,7 +91,7 @@ namespace BeerDrive.Presenters
 
                 var message = $"<p>ტრანზაქციის გაუქმება</p> <p>კოდი: <strong>{code}</strong></p>";
 
-                if (!EmailService.Send(mailTo, message))
+                if (!await EmailService.SendAsync(mailTo, message))
                     ValidationFault.Throw("ერთჯერადი კოდის გაგზავნა ვერ განხორციალდა");
 
                 entity.Code = code;

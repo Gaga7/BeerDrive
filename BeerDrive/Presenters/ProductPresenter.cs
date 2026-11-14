@@ -62,6 +62,9 @@ namespace BeerDrive.Presenters
 
             using (var unitOfWork = new UnitOfWork())
             {
+                if (await unitOfWork.ProductRepository.CheckAsync(p => p.Barcode == model.Barcode))
+                    ValidationFault.Throw("პროდუქტი ამ ბარკოდით უკვე დამატებულია");
+
                 var entity = new BD_Products
                 {
                     Id = Guid.NewGuid()
@@ -87,6 +90,9 @@ namespace BeerDrive.Presenters
 
                 if (entity == null)
                     ValidationFault.Throw("ჩანაწერი ვერ მოიძებნა");
+
+                if (await unitOfWork.ProductRepository.CheckAsync(p => p.Id != id.Value && p.Barcode == model.Barcode))
+                    ValidationFault.Throw("პროდუქტი ამ ბარკოდით უკვე დამატებულია");
 
                 mapper.Map(model, entity);
 

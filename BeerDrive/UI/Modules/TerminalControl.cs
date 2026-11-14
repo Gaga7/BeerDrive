@@ -198,13 +198,15 @@ namespace BeerDrive.UI.Modules
 
         private async Task SearchBarcode()
         {
-            if (string.IsNullOrEmpty(Barcode))
+            var barcode = Barcode?.Trim();
+
+            if (string.IsNullOrEmpty(barcode))
             {
                 XtraMessageBox.Show("მიუთითეთ ბარკოდი", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var products = await ProductPresenter.GetAsync(r => r.Barcode == Barcode);
+            var products = await ProductPresenter.GetAsync(r => r.Barcode == barcode);
 
             Barcode = null;
             Quantity = 0;
@@ -398,7 +400,7 @@ namespace BeerDrive.UI.Modules
             {
                 CustomerId = null;
 
-                XtraMessageBox.Show(ex.InnerException.ToString(), "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show(ex.InnerException?.Message ?? ex.Message, "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }

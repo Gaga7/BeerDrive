@@ -101,6 +101,12 @@ namespace BeerDrive.Presenters
 
             using (var unitOfWork = new UnitOfWork())
             {
+                if (await unitOfWork.UserRepository.CheckAsync(u => u.LoginName == model.LoginName))
+                    ValidationFault.Throw("მომხმარებელი ამ სახელით უკვე არსებობს");
+
+                if (await unitOfWork.UserRepository.CheckAsync(u => u.PersonalId == model.PersonalId))
+                    ValidationFault.Throw("მომხმარებელი ამ პირადი ნომრით უკვე არსებობს");
+
                 var entity = new BD_Users
                 {
                     Id = Guid.NewGuid(),
@@ -140,6 +146,12 @@ namespace BeerDrive.Presenters
 
                 if (entity == null)
                     ValidationFault.Throw("ჩანაწერი ვერ მოიძებნა");
+
+                if (await unitOfWork.UserRepository.CheckAsync(u => u.Id != id && u.LoginName == model.LoginName))
+                    ValidationFault.Throw("მომხმარებელი ამ სახელით უკვე არსებობს");
+
+                if (await unitOfWork.UserRepository.CheckAsync(u => u.Id != id && u.PersonalId == model.PersonalId))
+                    ValidationFault.Throw("მომხმარებელი ამ პირადი ნომრით უკვე არსებობს");
 
                 mapper.Map(model, entity);
 
