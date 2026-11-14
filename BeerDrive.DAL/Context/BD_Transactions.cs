@@ -14,6 +14,7 @@ namespace BeerDrive.DAL.Context
         public Guid? PayTypeId { get; set; }
 
         public Guid? CustomerId { get; set; }
+        public Guid? CustomerScoreTransactionId { get; set; }
 
         public Guid TransactionStatusTypeId { get; set; }
 
@@ -31,6 +32,7 @@ namespace BeerDrive.DAL.Context
 
         public virtual BD_Users BD_Users { get; set; }
         public virtual BD_PayTypes BD_PayTypes { get; set; }
+        public virtual BD_CustomerScoreTransactions BD_CustomerScoreTransactions { get; set; }
         public virtual BD_TransactionStatusTypes BD_TransactionStatusTypes { get; set; }
         public virtual ICollection<BD_TransactionDetails> BD_TransactionDetails { get; set; }
     }

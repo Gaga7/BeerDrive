@@ -48,6 +48,9 @@ namespace BeerDrive.AutoMapper
                 .ForMember(f => f.User, n => n.MapFrom(m => $"{m.BD_Users.FirstName} {m.BD_Users.LastName}"));
                 cfg.CreateMap<BD_TransactionDetails, GetTransactionDetailDto>()
                 .ForMember(f => f.ProductName, n => n.MapFrom(m => m.BD_Products.Name));
+                cfg.CreateMap<BD_ExchangeRates, GetExchangeRateDto>()
+                .ForMember(f => f.ExchangeType, n => n.MapFrom(m => m.BD_ExchangeTypes.Name));
+                cfg.CreateMap<BD_ExchangeTypes, GetExchangeTypeDto>();
 
                 //DTO To Entity
                 cfg.CreateMap<SetCategoryDto, BD_Categories>();
@@ -66,6 +69,7 @@ namespace BeerDrive.AutoMapper
                 .ForMember(f => f.Password, n => n.Ignore());
                 cfg.CreateMap<SetTransactionDetailDto, BD_TransactionDetails>()
                 .ForMember(f => f.TotalPrice, n => n.MapFrom(m => m.Quantity.Value * m.UnitPrice.Value));
+                cfg.CreateMap<SetExchangeRateDto, BD_ExchangeRates>();
             });
 
             return new Mapper(config);

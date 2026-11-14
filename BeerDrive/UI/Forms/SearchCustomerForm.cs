@@ -1,4 +1,5 @@
-﻿using BeerDrive.Presenters;
+﻿using BeerDrive.DAL.Enums;
+using BeerDrive.Presenters;
 using DevExpress.XtraEditors;
 using System;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace BeerDrive.UI.Forms
     public partial class SearchCustomerForm : XtraForm
     {
         private CustomerPresenter customerPresenter;
+        private ExchangeRatePresenter exchangeRatePresenter;
 
         public CustomerPresenter CustomerPresenter
         {
@@ -19,6 +21,17 @@ namespace BeerDrive.UI.Forms
                     customerPresenter = new CustomerPresenter();
 
                 return customerPresenter;
+            }
+        }
+
+        public ExchangeRatePresenter ExchangeRatePresenter
+        {
+            get
+            {
+                if (exchangeRatePresenter == null)
+                    exchangeRatePresenter = new ExchangeRatePresenter();
+
+                return exchangeRatePresenter;
             }
         }
 
@@ -40,6 +53,12 @@ namespace BeerDrive.UI.Forms
         {
             get { return ScoreSpn.Value; }
             set { ScoreSpn.Value = value; }
+        }
+
+        private decimal Amount
+        {
+            get { return AmountSpn.Value; }
+            set { AmountSpn.Value = value; }
         }
 
         public SearchCustomerForm()
@@ -78,6 +97,14 @@ namespace BeerDrive.UI.Forms
             Close();
         }
 
+        private async void MobileTxt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != (char)Keys.Enter)
+                return;
+
+            await Search();
+        }
+
         private async Task Search()
         {
             var entities = await CustomerPresenter.GetAsync(r => r.Mobile == Mobile);
@@ -89,9 +116,18 @@ namespace BeerDrive.UI.Forms
                 return;
             }
 
+            var rate = (await ExchangeRatePresenter.GetAsync(r => r.ExchangeTypeId == ExchangeTypesEnum.Buy)).FirstOrDefault();
+
+            if (rate == null)
+            {
+                XtraMessageBox.Show("კურსი ვერ მოიძებნა", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             CustomerId = entity.Id;
             Customer = $"{entity.FirstName} {entity.LastName}";
             Score = entity.Score;
+            Amount = Math.Round(entity.Score / rate.Score * rate.Amount, 4);
         }
     }
 }

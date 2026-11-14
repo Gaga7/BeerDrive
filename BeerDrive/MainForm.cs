@@ -71,6 +71,7 @@ namespace BeerDrive
             accordionControlElementPositions.Visible = Globals.User.IsAdmin;
             accordionControlElementTransactions.Visible = Globals.User.IsAdmin || Globals.User.IsOperator;
             accordionControlElementTransactionDetails.Visible = Globals.User.IsAdmin || Globals.User.IsOperator;
+            accordionControlElementExchangeRates.Visible = Globals.User.IsAdmin;
         }
 
         private async Task InitializeControl(string control)
@@ -139,6 +140,11 @@ namespace BeerDrive
         private async void AccordionControlElementTransactionDetails_Click(object sender, EventArgs e)
         {
             await InitializeControl("TransactionDetailsControl");
+        }
+
+        private async void AccordionControlElementExchangeRates_Click(object sender, EventArgs e)
+        {
+            await InitializeControl("ExchangeRatesControl");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

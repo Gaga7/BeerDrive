@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BeerDrive.AutoMapper;
 using BeerDrive.DAL.Context;
+using BeerDrive.DAL.Enums;
 using BeerDrive.DAL.Exceptions;
 using BeerDrive.DAL.Implementations;
 using BeerDrive.DTOs;
@@ -27,7 +28,19 @@ namespace BeerDrive.Presenters
             {
                 var entities = await unitOfWork.CustomerRepository.ReadAsync();
 
-                return mapper.Map<List<GetCustomerDto>>(entities);
+                var model = mapper.Map<List<GetCustomerDto>>(entities);
+
+                var rate = (await unitOfWork.ExchangeRateRepository.ReadAsync(r => r.ExchangeTypeId == ExchangeTypesEnum.Buy)).FirstOrDefault();
+
+                if (rate == null)
+                    ValidationFault.Throw("კურსი ვერ მოიძებნა");
+
+                foreach (var item in model)
+                {
+                    item.ScoreInAmount = Math.Round(item.Score / rate.Score * rate.Amount, 4);
+                }
+
+                return model;
             }
         }
 

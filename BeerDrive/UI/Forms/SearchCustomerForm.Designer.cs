@@ -46,22 +46,26 @@ namespace BeerDrive.UI.Forms
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.ScoreSpn = new DevExpress.XtraEditors.SpinEdit();
             this.MobileTxt = new DevExpress.XtraEditors.TextEdit();
+            this.AmountSpn = new DevExpress.XtraEditors.SpinEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustomerTxt.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreSpn.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MobileTxt.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmountSpn.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -69,11 +73,12 @@ namespace BeerDrive.UI.Forms
             this.layoutControl1.Controls.Add(this.CustomerTxt);
             this.layoutControl1.Controls.Add(this.ScoreSpn);
             this.layoutControl1.Controls.Add(this.MobileTxt);
+            this.layoutControl1.Controls.Add(this.AmountSpn);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 30);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(278, 140);
+            this.layoutControl1.Size = new System.Drawing.Size(278, 173);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -183,7 +188,7 @@ namespace BeerDrive.UI.Forms
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 170);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 203);
             this.barDockControlBottom.Manager = this.barManager1;
             this.barDockControlBottom.Size = new System.Drawing.Size(278, 32);
             // 
@@ -193,7 +198,7 @@ namespace BeerDrive.UI.Forms
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 30);
             this.barDockControlLeft.Manager = this.barManager1;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 140);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 173);
             // 
             // barDockControlRight
             // 
@@ -201,7 +206,7 @@ namespace BeerDrive.UI.Forms
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(278, 30);
             this.barDockControlRight.Manager = this.barManager1;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 140);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 173);
             // 
             // ScoreSpn
             // 
@@ -240,6 +245,33 @@ namespace BeerDrive.UI.Forms
             this.MobileTxt.Size = new System.Drawing.Size(182, 28);
             this.MobileTxt.StyleController = this.layoutControl1;
             this.MobileTxt.TabIndex = 4;
+            this.MobileTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MobileTxt_KeyPress);
+            // 
+            // AmountSpn
+            // 
+            this.AmountSpn.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.AmountSpn.Location = new System.Drawing.Point(84, 108);
+            this.AmountSpn.Name = "AmountSpn";
+            this.AmountSpn.Properties.Appearance.Font = new System.Drawing.Font("Sylfaen", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmountSpn.Properties.Appearance.Options.UseFont = true;
+            this.AmountSpn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.AmountSpn.Properties.Mask.EditMask = "G";
+            this.AmountSpn.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.AmountSpn.Properties.MaxValue = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.AmountSpn.Properties.ReadOnly = true;
+            this.AmountSpn.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.AmountSpn.Size = new System.Drawing.Size(182, 28);
+            this.AmountSpn.StyleController = this.layoutControl1;
+            this.AmountSpn.TabIndex = 1;
             // 
             // Root
             // 
@@ -249,9 +281,10 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem1,
             this.layoutControlItem2,
             this.emptySpaceItem1,
-            this.layoutControlItem3});
+            this.layoutControlItem3,
+            this.layoutControlItem4});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(278, 140);
+            this.Root.Size = new System.Drawing.Size(278, 173);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -275,9 +308,9 @@ namespace BeerDrive.UI.Forms
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 96);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 128);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(258, 24);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(258, 25);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem3
@@ -289,11 +322,21 @@ namespace BeerDrive.UI.Forms
             this.layoutControlItem3.Text = "კლიენტი";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(69, 17);
             // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.AmountSpn;
+            this.layoutControlItem4.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 96);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(258, 32);
+            this.layoutControlItem4.Text = "თანხა";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(69, 17);
+            // 
             // SearchCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 202);
+            this.ClientSize = new System.Drawing.Size(278, 235);
             this.ControlBox = false;
             this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.barDockControlLeft);
@@ -312,11 +355,13 @@ namespace BeerDrive.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreSpn.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MobileTxt.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmountSpn.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,5 +389,7 @@ namespace BeerDrive.UI.Forms
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraEditors.TextEdit CustomerTxt;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraEditors.SpinEdit AmountSpn;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

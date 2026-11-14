@@ -227,6 +227,12 @@ namespace BeerDrive.Presenters
                     ValidationFault.Throw("არასაკმარისი თანხა");
             }
 
+            if (model.PayTypeId == PayTypesEnum.Points)
+            {
+                if (model.CustomerId == null)
+                    ValidationFault.Throw("კლიენტის იდენტიფიკატორი ცარიელია");
+            }
+
             using (var unitOfWork = new UnitOfWork())
             {
                 var transaction = await unitOfWork.TransactionRepository.ReadAsync(model.Id.Value);
@@ -262,7 +268,7 @@ namespace BeerDrive.Presenters
                 transaction.TotalQuantity = transactionDetails.Sum(s => s.Quantity);
                 transaction.TotalAmount = transactionDetails.Sum(s => s.TotalPrice);
 
-                await unitOfWork.TransactionRepository.UpdateAsync(transaction.Id, transaction);
+                //await unitOfWork.TransactionRepository.UpdateAsync(transaction.Id, transaction);
 
                 var waitingTransaction = waitingTransactions.FirstOrDefault();
 
@@ -277,13 +283,68 @@ namespace BeerDrive.Presenters
                 {
                     var customer = await unitOfWork.CustomerRepository.ReadAsync(model.CustomerId.Value);
 
-                    if (customer != null)
+                    if (model.PayTypeId == PayTypesEnum.Points)
                     {
-                        customer.Score += transaction.TotalAmount.GetValueOrDefault();
+                        if (customer == null)
+                            ValidationFault.Throw("კლიენტი ვერ მოიძებნა");
+
+                        var rate = (await unitOfWork.ExchangeRateRepository.ReadAsync(r => r.ExchangeTypeId == ExchangeTypesEnum.Buy)).FirstOrDefault();
+
+                        if (rate == null)
+                            ValidationFault.Throw("კურსი ვერ მოიძებნა");
+
+                        var score = Math.Round(transaction.TotalAmount.GetValueOrDefault() / rate.Amount * rate.Score, 2);
+
+                        if (customer.Score < score)
+                            ValidationFault.Throw($"არასაკმარისი ქულები ({customer.Score} / {score})");
+
+                        customer.Score -= score;
 
                         await unitOfWork.CustomerRepository.UpdateAsync(customer.Id, customer);
+
+                        var customerScoreTransaction = new BD_CustomerScoreTransactions
+                        {
+                            Id = Guid.NewGuid(),
+                            CustomerId = customer.Id,
+                            ExchangeRateId = rate.Id,
+                            Score = -score
+                        };
+
+                        transaction.CustomerScoreTransactionId = customerScoreTransaction.Id;
+
+                        await unitOfWork.CustomerScoreTransactionRepository.CreateAsync(customerScoreTransaction);
+                    }
+                    else
+                    {
+                        if (customer != null)
+                        {
+                            var rate = (await unitOfWork.ExchangeRateRepository.ReadAsync(r => r.ExchangeTypeId == ExchangeTypesEnum.Sell)).FirstOrDefault();
+
+                            if (rate == null)
+                                ValidationFault.Throw("კურსი ვერ მოიძებნა");
+
+                            var score = Math.Round(transaction.TotalAmount.GetValueOrDefault() / rate.Amount * rate.Score, 2);
+
+                            customer.Score += score;
+
+                            await unitOfWork.CustomerRepository.UpdateAsync(customer.Id, customer);
+
+                            var customerScoreTransaction = new BD_CustomerScoreTransactions
+                            {
+                                Id = Guid.NewGuid(),
+                                CustomerId = customer.Id,
+                                ExchangeRateId = rate.Id,
+                                Score = score
+                            };
+
+                            transaction.CustomerScoreTransactionId = customerScoreTransaction.Id;
+
+                            await unitOfWork.CustomerScoreTransactionRepository.CreateAsync(customerScoreTransaction);
+                        }
                     }
                 }
+
+                await unitOfWork.TransactionRepository.UpdateAsync(transaction.Id, transaction);
 
                 await unitOfWork.SaveAsync();
             }
@@ -326,7 +387,7 @@ namespace BeerDrive.Presenters
         public async Task AddInQueueAsync(Guid? id)
         {
             if (id == null)
-                ValidationFault.Throw("იდენტიფიკატორი ცარიელია");
+                ValidationFault.Throw("ტრანზაქციის იდენტიფიკატორი ცარიელია");
 
             using (var unitOfWork = new UnitOfWork())
             {

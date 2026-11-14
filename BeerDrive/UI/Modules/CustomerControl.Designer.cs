@@ -33,7 +33,6 @@ namespace BeerDrive.UI.Modules
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerControl));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.customersGridview = new DevExpress.XtraGrid.GridControl();
-            this.getCustomerDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFirstName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -52,14 +51,16 @@ namespace BeerDrive.UI.Modules
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.colScoreInAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.getCustomerDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customersGridview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.getCustomerDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.getCustomerDtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -85,10 +86,6 @@ namespace BeerDrive.UI.Modules
             this.gridView1});
             this.customersGridview.Load += new System.EventHandler(this.CustomersGridview_Load);
             // 
-            // getCustomerDtoBindingSource
-            // 
-            this.getCustomerDtoBindingSource.DataSource = typeof(BeerDrive.DTOs.GetCustomerDto);
-            // 
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -96,7 +93,8 @@ namespace BeerDrive.UI.Modules
             this.colFirstName,
             this.colLastName,
             this.colMobile,
-            this.colScore});
+            this.colScore,
+            this.colScoreInAmount});
             this.gridView1.DetailHeight = 372;
             this.gridView1.GridControl = this.customersGridview;
             this.gridView1.Name = "gridView1";
@@ -267,6 +265,20 @@ namespace BeerDrive.UI.Modules
             this.barDockControlRight.Manager = this.barManager1;
             this.barDockControlRight.Size = new System.Drawing.Size(0, 365);
             // 
+            // colScoreInAmount
+            // 
+            this.colScoreInAmount.Caption = "თანხა";
+            this.colScoreInAmount.FieldName = "ScoreInAmount";
+            this.colScoreInAmount.MinWidth = 25;
+            this.colScoreInAmount.Name = "colScoreInAmount";
+            this.colScoreInAmount.Visible = true;
+            this.colScoreInAmount.VisibleIndex = 4;
+            this.colScoreInAmount.Width = 94;
+            // 
+            // getCustomerDtoBindingSource
+            // 
+            this.getCustomerDtoBindingSource.DataSource = typeof(BeerDrive.DTOs.GetCustomerDto);
+            // 
             // CustomerControl
             // 
             this.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F);
@@ -283,11 +295,11 @@ namespace BeerDrive.UI.Modules
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customersGridview)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.getCustomerDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.getCustomerDtoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -310,11 +322,12 @@ namespace BeerDrive.UI.Modules
         private DevExpress.XtraBars.BarButtonItem editCustomerBtn;
         private DevExpress.XtraBars.BarButtonItem deleteCustomerBtn;
         private DevExpress.XtraBars.BarButtonItem refreshBtn;
-        private System.Windows.Forms.BindingSource getCustomerDtoBindingSource;
         private DevExpress.XtraGrid.Columns.GridColumn colId;
         private DevExpress.XtraGrid.Columns.GridColumn colFirstName;
         private DevExpress.XtraGrid.Columns.GridColumn colLastName;
         private DevExpress.XtraGrid.Columns.GridColumn colMobile;
         private DevExpress.XtraGrid.Columns.GridColumn colScore;
+        private DevExpress.XtraGrid.Columns.GridColumn colScoreInAmount;
+        private System.Windows.Forms.BindingSource getCustomerDtoBindingSource;
     }
 }

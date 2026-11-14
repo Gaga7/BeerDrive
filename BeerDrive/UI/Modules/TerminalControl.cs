@@ -1,4 +1,5 @@
 ﻿using BeerDrive.DAL.Enums;
+using BeerDrive.DAL.Exceptions;
 using BeerDrive.DTOs;
 using BeerDrive.Global;
 using BeerDrive.Presenters;
@@ -9,6 +10,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -354,11 +356,20 @@ namespace BeerDrive.UI.Modules
                     return;
                 }
 
+                if (PayTypeId == PayTypesEnum.Points && form.CustomerId == null)
+                {
+                    XtraMessageBox.Show("ქულებით გადახდის დროს აუცილებელია კლიენტის არჩევა", "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 CustomerId = form.CustomerId;
             }
 
             if (XtraMessageBox.Show("მონაცემები დაფიქსირდება ბაზაში. გავაგრძელოთ?", "შეტყობინება", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                CustomerId = null;
                 return;
+            }
 
             var model = new SetPayDto
             {
@@ -369,10 +380,27 @@ namespace BeerDrive.UI.Modules
                 Change = Change
             };
 
-            await TerminalPresenter.PayAsync(model);
+            try
+            {
+                await TerminalPresenter.PayAsync(model);
 
-            Clear();
-            FillTerminal();
+                Clear();
+                FillTerminal();
+            }
+            catch (FaultException<ValidationFault> ex)
+            {
+                CustomerId = null;
+
+                XtraMessageBox.Show(ex.Detail.Message, "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            catch (Exception ex)
+            {
+                CustomerId = null;
+
+                XtraMessageBox.Show(ex.InnerException.ToString(), "შეტყობინება", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void Clear()
